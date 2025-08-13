@@ -1,0 +1,6 @@
+.env
+n8n-data/*
+!n8n-data/.gitkeep
+postgres_data/
+*.log
+.DS_Store
