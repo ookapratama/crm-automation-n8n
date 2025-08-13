@@ -1,0 +1,36 @@
+[
+  {
+    "name": "John Smith",
+    "email": "john.smith@techcorp.com",
+    "company": "TechCorp Inc",
+    "job_title": "Marketing Director",
+    "source": "webinar",
+    "phone": "+1234567890",
+    "expected_score": "HIGH"
+  },
+  {
+    "name": "Jane Doe",
+    "email": "jane@gmail.com",
+    "company": "",
+    "job_title": "Student",
+    "source": "social-media",
+    "expected_score": "LOW"
+  },
+  {
+    "name": "Mike Johnson",
+    "email": "mike.johnson@startup.io",
+    "company": "Startup.io",
+    "job_title": "CEO",
+    "source": "referral",
+    "phone": "+1987654321",
+    "expected_score": "HIGH"
+  },
+  {
+    "name": "Sarah Wilson",
+    "email": "sarah@mediumcompany.com",
+    "company": "Medium Company",
+    "job_title": "Sales Associate",
+    "source": "website",
+    "expected_score": "MEDIUM"
+  }
+]
