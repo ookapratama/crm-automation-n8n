@@ -100,4 +100,4 @@ Built as part of automation portfolio demonstration.
 Focus on enterprise-grade reliability dan scalability.
 
 ---
-**Contact**: ookapratama2@gmail.com | **Portfolio**: ooka.my.id
+**Contact**: ookapratama2@gmail.com | **Portfolio**: [ooka.my.id](https://ooka.my.id/)
