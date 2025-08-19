@@ -1,0 +1,58 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "/lead-scoring",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        -80
+      ],
+      "id": "e1f4e0ed-431e-4e84-81c2-6812062b50c1",
+      "name": "Webhook",
+      "webhookId": "34af9259-9c17-40c1-b725-f92decd58a0b"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get webhook data from correct location\nconst webhookData = $input.first().json;\nconst leadData = webhookData.body; // Data ada di body property!\n\nconsole.log('Lead data from body:', leadData);\n\n// Initialize score\nlet score = 0;\nlet scoreBreakdown = [];\n\n// Email domain scoring\nif (leadData.email) {\n  const emailDomain = leadData.email.split('@')[1];\n  const personalDomains = ['gmail.com', 'yahoo.com', 'hotmail.com'];\n  \n  if (!personalDomains.includes(emailDomain.toLowerCase())) {\n    score += 20;\n    scoreBreakdown.push('Business Email: +20');\n  } else {\n    scoreBreakdown.push('Personal Email: +0');\n  }\n  console.log('Email domain:', emailDomain);\n}\n\n// Company scoring\nif (leadData.company && leadData.company.length > 0) {\n  score += 15;\n  scoreBreakdown.push('Has Company: +15');\n  console.log('Company found:', leadData.company);\n} else {\n  scoreBreakdown.push('No Company: +0');\n}\n\n// Job title scoring\nif (leadData.job_title) {\n  const seniorTitles = ['manager', 'director', 'vp', 'ceo', 'cto', 'head'];\n  const title = leadData.job_title.toLowerCase();\n  \n  if (seniorTitles.some(senior => title.includes(senior))) {\n    score += 25;\n    scoreBreakdown.push('Senior Title: +25');\n  } else {\n    score += 10;\n    scoreBreakdown.push('Job Title: +10');\n  }\n  console.log('Job title found:', leadData.job_title);\n}\n\n// Source scoring\nconst sourcePoints = {\n  'website': 15,\n  'referral': 25,\n  'social-media': 10,\n  'email-campaign': 5,\n  'webinar': 20\n};\n\nif (leadData.source && sourcePoints[leadData.source]) {\n  score += sourcePoints[leadData.source];\n  scoreBreakdown.push(`Source (${leadData.source}): +${sourcePoints[leadData.source]}`);\n  console.log('Source found:', leadData.source);\n}\n\n// Determine priority\nlet priority = 'LOW';\nif (score >= 60) priority = 'HIGH';\nelse if (score >= 35) priority = 'MEDIUM';\n\nconsole.log('=== SCORING RESULTS ===');\nconsole.log('Final score:', score);\nconsole.log('Priority:', priority);\nconsole.log('Score breakdown:', scoreBreakdown);\n\n// Return result with original webhook data + scoring\nreturn [{\n  ...leadData,\n  lead_score: score,\n  priority_level: priority,\n  score_breakdown: scoreBreakdown,\n  processed_at: new Date().toISOString(),\n  next_action: priority === 'HIGH' ? 'immediate_contact' : \n               priority === 'MEDIUM' ? 'follow_up_24h' : 'nurture_sequence',\n  original_webhook_data: webhookData // Keep original for reference\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        176,
+        -80
+      ],
+      "id": "3fa16fbf-45fa-4694-93a3-d2ef5d66fef8",
+      "name": "Code"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f11a0be4-aee7-406e-91f0-be91ef0dd8d1",
+  "meta": {
+    "instanceId": "aa6df570f4be8b3138b237ce6dc648e371b8656be766cb3f7f8dc624e0122dac"
+  },
+  "id": "PMCfqUezE4Z4N9bH",
+  "tags": []
+}

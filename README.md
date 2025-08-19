@@ -68,20 +68,22 @@ Access n8n: http://localhost:5678
 
 ## 🔄 Workflows
 
-### 1. Lead Scoring Engine
-- Input: Webhook dari website/form
-- Processing: Score calculation berdasarkan rules
-- Output: Enriched lead data dengan score
+### 1. Lead Scoring Engine (Completed)
+- **Input**: Webhook dari website/form
+- **Processing**: Score calculation berdasarkan rules
+- **Output**: Enriched lead data dengan score
+- **Test Result**: HIGH score leads (60+), MEDIUM (35-59), LOW (0-34)
+- **File**: `workflows/lead-scoring-workflow.json` 
 
-### 2. Lead Assignment System  
-- Input: Scored leads
-- Processing: Territory/expertise matching
-- Output: Assigned leads dengan notification
+### 2. Lead Assignment System (IN PROGRESS)
+- **Input**: Scored leads
+- **Processing**: Territory/expertise matching
+- **Output**: Assigned leads dengan notification
 
-### 3. Follow-up Automation
-- Input: CRM pipeline updates
-- Processing: Schedule follow-ups berdasarkan stage
-- Output: Automated emails/tasks/reminders
+### 3. Follow-up Automation (PLANNED)
+- **Input**: CRM pipeline updates
+- **Processing**: Schedule follow-ups berdasarkan stage
+- **Output**: Automated emails/tasks/reminders
 
 ## 📈 Metrics & Monitoring
 - Lead processing time
